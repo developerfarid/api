@@ -14,7 +14,7 @@
     border-radius: 25px;
     color: white;
 }
-table,tr,td{
+table,tr,td,th{
     border-collapse: collapse;
     border: 1px solid green;
     padding: 10px;
@@ -80,6 +80,7 @@ input{
                const div= document.getElementById("div")
                div.innerHTML=`
                <table>
+                <tr><th>Name</th><th>Email</th><th>Phone</th><th>City</th></tr>
                 <tr>
                     <td>
                     ${date.name}</td>
