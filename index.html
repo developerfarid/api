@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        button#click,button {
+    background: black;
+    padding: 15px 35px;
+    font-size: 20px;
+    border: none;
+    border-radius: 25px;
+    color: white;
+}
+table,tr,td{
+    border-collapse: collapse;
+    border: 1px solid green;
+    padding: 10px;
+}
+#ul, #div{
+    width: 900px;
+    margin: auto;
+    list-style-type: none;
+}
+li{
+    font-size: 35px;
+}
+label, input{
+    display: block;
+    text-align: center;
+    font-size: 20px;
+   
+}
+input{
+    width: 300px;
+    padding: 15px;
+    margin: auto;
+}
+    </style>
+  </head>
+  <body>
+    <label for="in">Enter a Number (1 to 10) <label><br>  
+    <input id="in" type="text"> <br> <button id="bu">Click</button>
+    <ul id="ul"></ul>
+    <table id="div">
+
+    </table>
+    <script>
+        document.getElementById("bu").addEventListener("click", ()=>{
+          const textValue=  document.getElementById("in").value;
+          const numberValue= Number(textValue)
+          fetch("https://jsonplaceholder.typicode.com/users")
+        .then((response) => response.json())
+        .then((data) => {
+            data= data.slice(0, numberValue)
+           ul.innerHTML=""
+          for (let i = 0; i < data.length; i++) {
+            let ul = document.getElementById("ul");
+            let user = data[i];
+            let li = document.createElement("li");
+            li.innerHTML = `<p>${user.name} <button id="click" onclick="getFullDetails(${user.id})"  >Get Full Details</button> </p> `;
+            console.log(li);
+            ul.appendChild(li)
+
+          }
+        });
+
+        })
+
+        // document.getElementById("click").addEventListener("click", (userId)=>{
+
+        // })
+      
+        function getFullDetails(us) {
+            fetch(`https://jsonplaceholder.typicode.com/users/${us}`)
+            .then(res=> res.json())
+            .then(date=>{
+               const div= document.getElementById("div")
+               div.innerHTML=`
+               <table>
+                <tr>
+                    <td>
+                    ${date.name}</td>
+                
+                <td>
+                    ${date.email}</td>
+               
+               <td>
+                    ${date.phone}</td>
+                
+                <td>
+                    ${date.address.city}</td>
+                </tr>
+                </table>
+               `
+            })
+            
+            
+            
+        }
+    </script>
+  </body>
+</html>
